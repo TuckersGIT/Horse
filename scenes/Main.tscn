@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbro0rx2k2kxr"]
+
+[ext_resource type="PackedScene" uid="uid://fvhhfdtvbm4b" path="res://scenes/horse.tscn" id="1_elqb8"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(1, 0)
+
+[node name="Horse" parent="." instance=ExtResource("1_elqb8")]
+position = Vector2(-24, 36)
+scale = Vector2(0.76017433, 0.76327044)

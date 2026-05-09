@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://fvhhfdtvbm4b"]
+
+[ext_resource type="Texture2D" uid="uid://ch6wf3j7m6hax" path="res://assets/TheHorse.png" id="1_7j5lf"]
+[ext_resource type="Script" uid="uid://bft3bsc6d1fka" path="res://scenes/horse.gd" id="1_lpili"]
+[ext_resource type="AudioStream" uid="uid://chl63abdvtai3" path="res://assets/sounds/clops/clop1.ogg" id="2_fjee1"]
+[ext_resource type="AudioStream" uid="uid://dtg26gy5e2xvy" path="res://assets/sounds/clops/clop2.ogg" id="3_pkxfc"]
+[ext_resource type="AudioStream" uid="uid://dygeecj3q1fdi" path="res://assets/sounds/clops/clop3.ogg" id="4_gl1uc"]
+
+[sub_resource type="AudioStream" id="AudioStream_lpili"]
+
+[node name="Horse" type="Node2D"]
+script = ExtResource("1_lpili")
+clops = Array[AudioStream]([ExtResource("2_fjee1"), ExtResource("3_pkxfc"), ExtResource("4_gl1uc")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-41.000008, -27.000011)
+scale = Vector2(0.16963491, 0.16963491)
+texture = ExtResource("1_7j5lf")
+
+[node name="Clop1" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_lpili")
+
+[node name="Clop2" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_lpili")
+
+[node name="Clop3" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_lpili")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(225, -100)
