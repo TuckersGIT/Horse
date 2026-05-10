@@ -11,17 +11,17 @@ position = Vector2(1, 0)
 [node name="Parallax2D" type="Parallax2D" parent="."]
 texture_filter = 1
 scroll_scale = Vector2(0.6, 0.6)
+scroll_offset = Vector2(-31, 16)
 repeat_size = Vector2(720, 0)
-repeat_times = 2
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(1051, 9)
+position = Vector2(939, 9)
 scale = Vector2(4.5, 4.5)
 texture = ExtResource("1_rvslj")
 
 [node name="Horse" parent="." instance=ExtResource("1_elqb8")]
-position = Vector2(-24, 36)
-scale = Vector2(0.76017433, 0.76327044)
+position = Vector2(-18, 62)
 
 [node name="UI" parent="." instance=ExtResource("3_0bbpv")]
 

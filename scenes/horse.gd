@@ -33,6 +33,9 @@ func _process(delta: float) -> void:
 	speed = max(speed,0)
 	
 	position.x += speed * delta
+	position = position.round()
+	
+	$Camera2D.global_position = $Camera2D.global_position.round()
 	
 	if finished:
 		speed = max(speed - speed * 3 * delta, 0) 

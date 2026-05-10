@@ -22,6 +22,7 @@ run_texture = ExtResource("5_pkxfc")
 slide_texture = ExtResource("6_fjee1")
 
 [node name="DustParticles" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2(-84, 119)
 amount = 175
 texture = ExtResource("7_pkxfc")
@@ -39,7 +40,8 @@ scale_amount_curve = SubResource("Curve_fjee1")
 color = Color(0.76, 0.7488533, 0.72959995, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-7.9999924, -24.999992)
+texture_filter = 1
+position = Vector2(-8, -25.000002)
 scale = Vector2(0.7344087, 0.7344087)
 texture = ExtResource("5_pkxfc")
 
@@ -53,4 +55,5 @@ stream = SubResource("AudioStream_lpili")
 stream = SubResource("AudioStream_lpili")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+texture_filter = 1
 offset = Vector2(225, -100)
