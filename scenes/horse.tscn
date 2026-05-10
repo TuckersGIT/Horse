@@ -22,7 +22,6 @@ run_texture = ExtResource("5_pkxfc")
 slide_texture = ExtResource("6_fjee1")
 
 [node name="DustParticles" type="CPUParticles2D" parent="."]
-visible = false
 position = Vector2(-84, 119)
 amount = 175
 texture = ExtResource("7_pkxfc")
