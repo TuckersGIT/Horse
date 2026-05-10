@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpip3sqc8rnet"]
+
+[ext_resource type="Texture2D" uid="uid://djdmy3def54wy" path="res://assets/Finish.png" id="1_ojfi3"]
+
+[node name="FinishLine" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ojfi3")

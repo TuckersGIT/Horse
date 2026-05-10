@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://drrvc5wyf0gnh"]
+
+[ext_resource type="Script" uid="uid://dlsn4tpgchg1t" path="res://scenes/race_clock.gd" id="1_7w1tq"]
+
+[node name="RaceClock" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7w1tq")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 105.0
+offset_bottom = 64.0
+horizontal_alignment = 1

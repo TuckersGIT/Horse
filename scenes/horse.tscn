@@ -1,21 +1,47 @@
-[gd_scene load_steps=7 format=3 uid="uid://fvhhfdtvbm4b"]
+[gd_scene load_steps=10 format=3 uid="uid://fvhhfdtvbm4b"]
 
-[ext_resource type="Texture2D" uid="uid://ch6wf3j7m6hax" path="res://assets/TheHorse.png" id="1_7j5lf"]
 [ext_resource type="Script" uid="uid://bft3bsc6d1fka" path="res://scenes/horse.gd" id="1_lpili"]
 [ext_resource type="AudioStream" uid="uid://chl63abdvtai3" path="res://assets/sounds/clops/clop1.ogg" id="2_fjee1"]
 [ext_resource type="AudioStream" uid="uid://dtg26gy5e2xvy" path="res://assets/sounds/clops/clop2.ogg" id="3_pkxfc"]
 [ext_resource type="AudioStream" uid="uid://dygeecj3q1fdi" path="res://assets/sounds/clops/clop3.ogg" id="4_gl1uc"]
+[ext_resource type="Texture2D" uid="uid://q81n1dgdrfif" path="res://assets/TrueHorse.png" id="5_pkxfc"]
+[ext_resource type="Texture2D" uid="uid://dn0trfhl8oqw5" path="res://assets/FalseHorse.png" id="6_fjee1"]
+[ext_resource type="Texture2D" uid="uid://dv286u8nda1so" path="res://assets/CloudParticle.png" id="7_pkxfc"]
+
+[sub_resource type="Curve" id="Curve_fjee1"]
+_data = [Vector2(0, 0.17977536), 0.0, 0.0, 0, 0, Vector2(0.4941861, 0.4044944), 0.82825005, 0.82825005, 0, 0, Vector2(0.77906984, 0.52808994), 0.0, 0.0, 0, 0, Vector2(1, 0.23595512), -3.1089396, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="AudioStream" id="AudioStream_lpili"]
 
 [node name="Horse" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_lpili")
 clops = Array[AudioStream]([ExtResource("2_fjee1"), ExtResource("3_pkxfc"), ExtResource("4_gl1uc")])
+run_texture = ExtResource("5_pkxfc")
+slide_texture = ExtResource("6_fjee1")
+
+[node name="DustParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-84, 119)
+amount = 175
+texture = ExtResource("7_pkxfc")
+lifetime = 0.4
+randomness = 0.18
+lifetime_randomness = 0.1
+spread = 20.0
+gravity = Vector2(-300, -20)
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+angle_min = 39.0
+angle_max = 113.5
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_fjee1")
+color = Color(0.76, 0.7488533, 0.72959995, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-41.000008, -27.000011)
-scale = Vector2(0.16963491, 0.16963491)
-texture = ExtResource("1_7j5lf")
+position = Vector2(-7.9999924, -24.999992)
+scale = Vector2(0.7344087, 0.7344087)
+texture = ExtResource("5_pkxfc")
 
 [node name="Clop1" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_lpili")
