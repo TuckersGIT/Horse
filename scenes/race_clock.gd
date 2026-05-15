@@ -1,7 +1,7 @@
 extends Control
 
 var total_time := 0.0
-var stopped = false
+var stopped = true
 
 func _process(delta):
 	if not stopped:
@@ -11,6 +11,9 @@ func _process(delta):
 		var milliseconds = int((total_time - seconds) * 100)
 
 		$Label.text = "%02d:%02d" % [seconds, milliseconds]
+
+func start_timer():
+	stopped = false
 	
 func stop_timer():
 	stopped = true

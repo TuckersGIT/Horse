@@ -1,24 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbro0rx2k2kxr"]
+[gd_scene load_steps=11 format=3 uid="uid://dbro0rx2k2kxr"]
 
 [ext_resource type="PackedScene" uid="uid://fvhhfdtvbm4b" path="res://scenes/horse.tscn" id="1_elqb8"]
-[ext_resource type="Texture2D" uid="uid://8o32ffa8utnn" path="res://assets/ART/Background1.png" id="1_rvslj"]
+[ext_resource type="Texture2D" uid="uid://byyjc1aum2ib4" path="res://assets/Background/Sky.png" id="1_nxtc6"]
+[ext_resource type="Texture2D" uid="uid://8fo04fcb86bk" path="res://assets/Background/Fense.png" id="1_vcsgt"]
+[ext_resource type="Texture2D" uid="uid://cqbaoo08y2oic" path="res://assets/Background/Foliage.png" id="2_jlsqs"]
 [ext_resource type="PackedScene" uid="uid://d3k5156mn2ltq" path="res://scenes/ui.tscn" id="3_0bbpv"]
+[ext_resource type="Texture2D" uid="uid://b6i06h273xp2q" path="res://assets/Background/House.png" id="4_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://cpip3sqc8rnet" path="res://scenes/finish_line.tscn" id="4_rarhs"]
+[ext_resource type="Texture2D" uid="uid://w2wafsemfqf5" path="res://assets/Background/Grass.png" id="4_vcsgt"]
+[ext_resource type="Shader" uid="uid://bdcrmmoy22uje" path="res://scenes/Main.gdshader" id="8_jlsqs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q8u5g"]
+shader = ExtResource("8_jlsqs")
 
 [node name="Main" type="Node2D"]
 position = Vector2(1, 0)
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
-texture_filter = 1
-scroll_scale = Vector2(0.6, 0.6)
-scroll_offset = Vector2(-31, 16)
-repeat_size = Vector2(720, 0)
-repeat_times = 3
+[node name="Background" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(939, 9)
-scale = Vector2(4.5, 4.5)
-texture = ExtResource("1_rvslj")
+[node name="Sky" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.05, 1)
+repeat_size = Vector2(1240, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
+position = Vector2(848, -38)
+texture = ExtResource("1_nxtc6")
+
+[node name="Foliage" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.4, 1)
+repeat_size = Vector2(1240, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Foliage"]
+position = Vector2(848, -38)
+texture = ExtResource("2_jlsqs")
+
+[node name="Fence" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.6, 1)
+repeat_size = Vector2(1240, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Fence"]
+position = Vector2(848, -38)
+texture = ExtResource("1_vcsgt")
+
+[node name="Parallax2D5" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.7, 1)
+
+[node name="House" type="Sprite2D" parent="Background/Parallax2D5"]
+position = Vector2(105, -50)
+texture = ExtResource("4_q8u5g")
+
+[node name="Grass" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.8, 1)
+repeat_size = Vector2(1240, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Grass"]
+position = Vector2(848, -38)
+texture = ExtResource("4_vcsgt")
 
 [node name="Horse" parent="." instance=ExtResource("1_elqb8")]
 position = Vector2(-18, 62)
@@ -28,3 +69,13 @@ position = Vector2(-18, 62)
 [node name="FinishLine" parent="." instance=ExtResource("4_rarhs")]
 position = Vector2(8031.0005, -10.999999)
 scale = Vector2(0.35677978, 0.35677978)
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing"]
+material = SubResource("ShaderMaterial_q8u5g")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

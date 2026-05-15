@@ -9,6 +9,8 @@ var deceleration = 80
 
 var finish_line
 var finished = false
+var race_started = false
+var countdown_started = false
 
 @export var clops: Array[AudioStream] = []
 @export var run_texture: Texture2D
@@ -18,12 +20,14 @@ var finished = false
 func _ready():
 	players = [$Clop1,$Clop2,$Clop3]
 	finish_line = get_parent().get_node("FinishLine")
+	$StartTimer.timeout.connect(start_race)
+	
 
 func _process(delta: float) -> void:
 		
 	time_since_press += delta
 	
-	if not finished:
+	if not finished and race_started:
 		if time_since_press > 0.75:
 			$Sprite2D.texture = slide_texture
 			rotation_degrees = 0
@@ -55,7 +59,13 @@ func _process(delta: float) -> void:
 		finish_race()
 	
 func _input(event: InputEvent) -> void:
-	if finished:
+	if event.is_action_pressed("space") and not race_started and not countdown_started:
+		countdown_started = true
+		$StartRace.play()
+		$StartTimer.start()
+		return
+		
+	if finished or not race_started:
 		return
 		
 	if event.is_action_pressed("left_arrrow"):
@@ -77,11 +87,17 @@ func _input(event: InputEvent) -> void:
 		else:
 			speed -= 40
 			
+func start_race():
+	time_since_press = 0.0
+	race_started = true
+	get_parent().get_node("UI/RaceClock").start_timer()
+
 func finish_race():
 	finished = true
 	rotation_degrees = 0
 	
 	get_parent().get_node("UI/RaceClock").stop_timer()
+	$HorseNoises.play()
 	
 func clop():
 	var c = clops[randi() % clops.size()]

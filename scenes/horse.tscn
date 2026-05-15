@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://fvhhfdtvbm4b"]
+[gd_scene load_steps=12 format=3 uid="uid://fvhhfdtvbm4b"]
 
 [ext_resource type="Script" uid="uid://bft3bsc6d1fka" path="res://scenes/horse.gd" id="1_lpili"]
-[ext_resource type="AudioStream" uid="uid://chl63abdvtai3" path="res://assets/sounds/clops/clop1.ogg" id="2_fjee1"]
-[ext_resource type="AudioStream" uid="uid://dtg26gy5e2xvy" path="res://assets/sounds/clops/clop2.ogg" id="3_pkxfc"]
-[ext_resource type="AudioStream" uid="uid://dygeecj3q1fdi" path="res://assets/sounds/clops/clop3.ogg" id="4_gl1uc"]
-[ext_resource type="Texture2D" uid="uid://q81n1dgdrfif" path="res://assets/TrueHorse.png" id="5_pkxfc"]
-[ext_resource type="Texture2D" uid="uid://dn0trfhl8oqw5" path="res://assets/FalseHorse.png" id="6_fjee1"]
+[ext_resource type="AudioStream" uid="uid://0ftm33c0b40i" path="res://assets/sounds/Clop2/clop1.ogg" id="2_gl1uc"]
+[ext_resource type="AudioStream" uid="uid://c3sdrsdo3fdv6" path="res://assets/sounds/Clop2/clop2.ogg" id="3_e0gb1"]
+[ext_resource type="AudioStream" uid="uid://dl0t0c6au40pc" path="res://assets/sounds/Clop2/clop3.ogg" id="4_6rl12"]
+[ext_resource type="Texture2D" uid="uid://cuk0sq4xpvf5p" path="res://assets/Horse1.png" id="5_e0gb1"]
+[ext_resource type="Texture2D" uid="uid://ctos5043gqsiy" path="res://assets/Horse2.png" id="6_6rl12"]
 [ext_resource type="Texture2D" uid="uid://dv286u8nda1so" path="res://assets/CloudParticle.png" id="7_pkxfc"]
+[ext_resource type="AudioStream" uid="uid://rsmjwi5ayne2" path="res://assets/sounds/StartRace.ogg" id="8_gl1uc"]
+[ext_resource type="AudioStream" uid="uid://drpoqw7dq5t8a" path="res://assets/sounds/HorseNeighs.ogg" id="9_e0gb1"]
 
 [sub_resource type="Curve" id="Curve_fjee1"]
 _data = [Vector2(0, 0.17977536), 0.0, 0.0, 0, 0, Vector2(0.4941861, 0.4044944), 0.82825005, 0.82825005, 0, 0, Vector2(0.77906984, 0.52808994), 0.0, 0.0, 0, 0, Vector2(1, 0.23595512), -3.1089396, 0.0, 0, 0]
@@ -16,13 +18,14 @@ point_count = 4
 
 [node name="Horse" type="Node2D"]
 texture_filter = 1
+position = Vector2(-1, 0)
 script = ExtResource("1_lpili")
-clops = Array[AudioStream]([ExtResource("2_fjee1"), ExtResource("3_pkxfc"), ExtResource("4_gl1uc")])
-run_texture = ExtResource("5_pkxfc")
-slide_texture = ExtResource("6_fjee1")
+clops = Array[AudioStream]([ExtResource("2_gl1uc"), ExtResource("3_e0gb1"), ExtResource("4_6rl12")])
+run_texture = ExtResource("5_e0gb1")
+slide_texture = ExtResource("6_6rl12")
 
 [node name="DustParticles" type="CPUParticles2D" parent="."]
-position = Vector2(-84, 119)
+position = Vector2(-86.95697, 165.60217)
 amount = 175
 texture = ExtResource("7_pkxfc")
 lifetime = 0.4
@@ -36,13 +39,12 @@ angle_min = 39.0
 angle_max = 113.5
 scale_amount_max = 6.0
 scale_amount_curve = SubResource("Curve_fjee1")
-color = Color(0.76, 0.7488533, 0.72959995, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-8, -25.000002)
+position = Vector2(-10.95697, 21.602167)
 scale = Vector2(0.7344087, 0.7344087)
-texture = ExtResource("5_pkxfc")
+texture = ExtResource("5_e0gb1")
 
 [node name="Clop1" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_lpili")
@@ -53,6 +55,18 @@ stream = SubResource("AudioStream_lpili")
 [node name="Clop3" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_lpili")
 
+[node name="StartRace" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gl1uc")
+volume_db = -10.0
+
+[node name="HorseNoises" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_e0gb1")
+volume_db = -10.0
+
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
 offset = Vector2(225, -100)
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
