@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d3k5156mn2ltq" path="res://scenes/ui.tscn" id="3_0bbpv"]
 [ext_resource type="Texture2D" uid="uid://b6i06h273xp2q" path="res://assets/Background/House.png" id="4_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://cpip3sqc8rnet" path="res://scenes/finish_line.tscn" id="4_rarhs"]
-[ext_resource type="Texture2D" uid="uid://w2wafsemfqf5" path="res://assets/Background/Grass.png" id="4_vcsgt"]
+[ext_resource type="Texture2D" uid="uid://bccfhtwfo1mm5" path="res://assets/Background/Ground.png" id="5_q8u5g"]
 [ext_resource type="Shader" uid="uid://bdcrmmoy22uje" path="res://scenes/Main.gdshader" id="8_jlsqs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q8u5g"]
@@ -59,7 +59,7 @@ repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Grass"]
 position = Vector2(848, -38)
-texture = ExtResource("4_vcsgt")
+texture = ExtResource("5_q8u5g")
 
 [node name="Horse" parent="." instance=ExtResource("1_elqb8")]
 position = Vector2(-18, 62)
@@ -67,7 +67,7 @@ position = Vector2(-18, 62)
 [node name="UI" parent="." instance=ExtResource("3_0bbpv")]
 
 [node name="FinishLine" parent="." instance=ExtResource("4_rarhs")]
-position = Vector2(8520.001, 1)
+position = Vector2(9492.001, -2.9999998)
 scale = Vector2(0.35677978, 0.35677978)
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
@@ -79,3 +79,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2

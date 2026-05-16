@@ -16,9 +16,13 @@ var countdown_started = false
 @export var run_texture: Texture2D
 @export var slide_texture: Texture2D
 
+@export var run_hat: Texture2D
+@export var slide_hat: Texture2D
+
+
 
 func _ready():
-	players = [$Clop1,$Clop2,$Clop3]
+	players = [$Players/Clop1,$Players/Clop2,$Players/Clop3]
 	finish_line = get_parent().get_node("FinishLine")
 	$StartTimer.timeout.connect(start_race)
 	
@@ -30,9 +34,11 @@ func _process(delta: float) -> void:
 	if not finished and race_started:
 		if time_since_press > 0.75:
 			$Sprite2D.texture = slide_texture
+			$Hat.texture = slide_hat
 			rotation_degrees = 0
 		else:
 			$Sprite2D.texture = run_texture
+			$Hat.texture = run_hat
 	
 	speed = max(speed,0)
 	
@@ -61,7 +67,7 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("space") and not race_started and not countdown_started:
 		countdown_started = true
-		$StartRace.play()
+		$Players/StartRace.play()
 		$StartTimer.start()
 		return
 		
@@ -97,7 +103,14 @@ func finish_race():
 	rotation_degrees = 0
 	
 	get_parent().get_node("UI/RaceClock").stop_timer()
-	$HorseNoises.play()
+	var finalTime = get_parent().get_node("UI/RaceClock").get_Time()
+	finalTime = floor(finalTime * 100) / 100.0
+	
+	$Players/HorseNoises.play()
+	$Players/Popoff.play()
+	
+	get_parent().get_node("UI/Leaderboard").add_score(finalTime)
+
 	
 func clop():
 	var c = clops[randi() % clops.size()]

@@ -17,3 +17,6 @@ func start_timer():
 	
 func stop_timer():
 	stopped = true
+	
+func get_Time():
+	return total_time
