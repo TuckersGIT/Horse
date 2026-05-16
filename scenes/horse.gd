@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 	if finished:
 		speed = max(speed - speed * 3 * delta, 0) 
 	else:
-		speed = max(speed - deceleration * delta, 0)
+		speed = max(speed - deceleration * delta * max(time_since_press * 1.25 ,1), 0)
 		
 	
 	if speed > 20 and not finished:

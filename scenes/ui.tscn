@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3k5156mn2ltq"]
+[gd_scene load_steps=3 format=3 uid="uid://d3k5156mn2ltq"]
 
 [ext_resource type="PackedScene" uid="uid://drrvc5wyf0gnh" path="res://scenes/race_clock.tscn" id="1_nt7q6"]
+[ext_resource type="PackedScene" uid="uid://cbjkldwq3dq3t" path="res://scenes/progress_bar.tscn" id="2_x4jx1"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -9,3 +10,5 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
+
+[node name="ProgressBar" parent="." instance=ExtResource("2_x4jx1")]

@@ -67,7 +67,7 @@ position = Vector2(-18, 62)
 [node name="UI" parent="." instance=ExtResource("3_0bbpv")]
 
 [node name="FinishLine" parent="." instance=ExtResource("4_rarhs")]
-position = Vector2(8031.0005, -10.999999)
+position = Vector2(8520.001, 1)
 scale = Vector2(0.35677978, 0.35677978)
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]

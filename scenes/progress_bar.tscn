@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbjkldwq3dq3t"]
+
+[ext_resource type="Texture2D" uid="uid://puafygru2sjo" path="res://assets/UI/Bar.png" id="1_1iuoo"]
+[ext_resource type="Script" uid="uid://cf4c6efdh462x" path="res://scenes/progress_bar.gd" id="1_eu8db"]
+[ext_resource type="Texture2D" uid="uid://irhalpq7mrou" path="res://assets/UI/BarFill.png" id="2_eu8db"]
+[ext_resource type="Texture2D" uid="uid://csskqp3ee4msr" path="res://assets/UI/HorseIcon.png" id="3_tumid"]
+
+[node name="ProgressBar" type="Control"]
+layout_mode = 3
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = 34.0
+offset_right = -68.0
+offset_bottom = -686.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_eu8db")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 654.0
+texture = ExtResource("1_1iuoo")
+
+[node name="FillMask" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Fill" type="TextureRect" parent="FillMask"]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 654.0
+texture = ExtResource("2_eu8db")
+
+[node name="HorseIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 564.0
+offset_right = 51.0
+offset_bottom = 654.0
+texture = ExtResource("3_tumid")
+expand_mode = 1
+stretch_mode = 2
