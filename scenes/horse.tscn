@@ -33,8 +33,16 @@ slide_texture = ExtResource("6_6rl12")
 run_hat = ExtResource("7_3l1kl")
 slide_hat = ExtResource("8_ph6uu")
 
-[node name="DustParticles" type="CPUParticles2D" parent="."]
-position = Vector2(-86.95697, 165.60217)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-11, 22)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_e0gb1")
+
+[node name="DustParticles" type="CPUParticles2D" parent="Sprite2D"]
+show_behind_parent = true
+position = Vector2(-101.333336, 180.00002)
+scale = Vector2(1.3333334, 1.3333334)
 amount = 175
 texture = ExtResource("7_pkxfc")
 lifetime = 0.4
@@ -49,11 +57,19 @@ angle_max = 113.5
 scale_amount_max = 6.0
 scale_amount_curve = SubResource("Curve_fjee1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(-11, 22)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("5_e0gb1")
+[node name="Hat" type="Sprite2D" parent="Sprite2D"]
+visible = false
+texture = ExtResource("7_3l1kl")
+
+[node name="Headclick" type="Area2D" parent="Sprite2D"]
+position = Vector2(14.666667, -29.333334)
+scale = Vector2(1.3333334, 1.3333334)
+script = ExtResource("11_0oyf6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Headclick"]
+position = Vector2(148, -93.00001)
+scale = Vector2(-4.420966, 2.8150616)
+shape = SubResource("CircleShape2D_6rl12")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
@@ -62,20 +78,6 @@ offset = Vector2(225, -100)
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="Hat" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-11, 22)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("7_3l1kl")
-
-[node name="Headclick" type="Area2D" parent="."]
-script = ExtResource("11_0oyf6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Headclick"]
-position = Vector2(148, -93.00001)
-scale = Vector2(-4.420966, 2.8150616)
-shape = SubResource("CircleShape2D_6rl12")
 
 [node name="Players" type="Node2D" parent="."]
 
@@ -103,3 +105,22 @@ volume_db = -10.0
 [node name="Popoff" type="AudioStreamPlayer" parent="Players"]
 stream = ExtResource("14_iiq8v")
 volume_db = -15.0
+
+[node name="NameTag" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = 199.0
+offset_right = 38.999992
+offset_bottom = 239.0
+
+[node name="Panel" type="Panel" parent="NameTag"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Name" type="Label" parent="NameTag"]
+layout_mode = 0
+offset_right = 72.99999
+offset_bottom = 23.0
+text = "Yo Mama"

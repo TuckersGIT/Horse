@@ -19,14 +19,18 @@ var countdown_started = false
 @export var run_hat: Texture2D
 @export var slide_hat: Texture2D
 
+var first_words = load_word_list("res://assets/Names/first.txt")
+var second_words = load_word_list("res://assets/Names/second.txt")
+var horse_name := ""
+
 
 
 func _ready():
 	players = [$Players/Clop1,$Players/Clop2,$Players/Clop3]
 	finish_line = get_parent().get_node("FinishLine")
 	$StartTimer.timeout.connect(start_race)
+	horse_name = nameTag()
 	
-
 func _process(delta: float) -> void:
 		
 	time_since_press += delta
@@ -34,11 +38,11 @@ func _process(delta: float) -> void:
 	if not finished and race_started:
 		if time_since_press > 0.75:
 			$Sprite2D.texture = slide_texture
-			$Hat.texture = slide_hat
-			rotation_degrees = 0
+			$Sprite2D/Hat.texture = slide_hat
+			$Sprite2D.rotation_degrees = 0
 		else:
 			$Sprite2D.texture = run_texture
-			$Hat.texture = run_hat
+			$Sprite2D/Hat.texture = run_hat
 	
 	speed = max(speed,0)
 	
@@ -54,12 +58,12 @@ func _process(delta: float) -> void:
 		
 	
 	if speed > 20 and not finished:
-		$DustParticles.emitting = true
+		$Sprite2D/DustParticles.emitting = true
 		var dust_scale = clamp(1.0 + speed * 0.005, 0.25, 5.0)
-		$DustParticles.scale_amount_min = dust_scale * 0.3
-		$DustParticles.scale_amount_max = dust_scale * 1.5
+		$Sprite2D/DustParticles.scale_amount_min = dust_scale * 0.3
+		$Sprite2D/DustParticles.scale_amount_max = dust_scale * 1.5
 	else:
-		$DustParticles.emitting = false
+		$Sprite2D/DustParticles.emitting = false
 	
 	if not finished and position.x >= finish_line.position.x:
 		finish_race()
@@ -76,7 +80,7 @@ func _input(event: InputEvent) -> void:
 		
 	if event.is_action_pressed("left_arrrow"):
 		if state == "wait_left":
-			rotation_degrees = -15
+			$Sprite2D.rotation_degrees = -15
 			clop()
 			state = "wait_right"
 			time_since_press = 0.0
@@ -85,7 +89,7 @@ func _input(event: InputEvent) -> void:
 			
 	if event.is_action_pressed("right_arrow"):
 		if state == "wait_right":
-			rotation_degrees = 15
+			$Sprite2D.rotation_degrees = 15
 			clop()
 			speed += 50
 			state = "wait_left"
@@ -100,7 +104,7 @@ func start_race():
 
 func finish_race():
 	finished = true
-	rotation_degrees = 0
+	$Sprite2D.rotation_degrees = 0
 	
 	get_parent().get_node("UI/RaceClock").stop_timer()
 	var finalTime = get_parent().get_node("UI/RaceClock").get_Time()
@@ -109,8 +113,10 @@ func finish_race():
 	$Players/HorseNoises.play()
 	$Players/Popoff.play()
 	
-	get_parent().get_node("UI/Leaderboard").add_score(finalTime)
-
+	get_parent().get_node("UI/Leaderboard").add_score(finalTime, horse_name)
+	
+	await get_tree().create_timer(1).timeout
+	get_parent().get_node("UI/Leaderboard").visible = true
 	
 func clop():
 	var c = clops[randi() % clops.size()]
@@ -120,3 +126,41 @@ func clop():
 
 	p.stream = c
 	p.play()
+
+func load_word_list(path: String) -> Array:
+	var file = FileAccess.open(path, FileAccess.READ)
+	
+	if file == null:
+		return []
+		
+	var text = file.get_as_text()
+	
+	return text.split("\n", false)
+	
+func generate_name() -> String:
+	var first = first_words.pick_random().strip_edges()
+	var second = second_words.pick_random().strip_edges()
+	
+	return (first + " " + second)
+	
+func nameTag() -> String:
+	var new_name = generate_name()
+	$NameTag/Name.text = new_name
+	var label = $NameTag/Name
+	var panel = $NameTag/Panel
+	
+	var text_size = label.get_theme_font("font").get_string_size(
+		label.text,
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1,
+		label.get_theme_font_size("font_size")
+	)
+	
+	label.size = text_size
+	panel.size = text_size + Vector2(16,8)
+
+	label.position.x = -label.size.x / 2.0
+	panel.position.x = label.position.x - 8
+	panel.position.y = label.position.y - 4
+
+	return new_name

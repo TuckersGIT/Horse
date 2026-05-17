@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbro0rx2k2kxr"]
+[gd_scene load_steps=12 format=3 uid="uid://dbro0rx2k2kxr"]
 
 [ext_resource type="PackedScene" uid="uid://fvhhfdtvbm4b" path="res://scenes/horse.tscn" id="1_elqb8"]
 [ext_resource type="Texture2D" uid="uid://byyjc1aum2ib4" path="res://assets/Background/Sky.png" id="1_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://8fo04fcb86bk" path="res://assets/Background/Fense.png" id="1_vcsgt"]
 [ext_resource type="Texture2D" uid="uid://cqbaoo08y2oic" path="res://assets/Background/Foliage.png" id="2_jlsqs"]
+[ext_resource type="Texture2D" uid="uid://dgkdd4ln60ke1" path="res://assets/Background/Felix.png" id="2_lhr70"]
 [ext_resource type="PackedScene" uid="uid://d3k5156mn2ltq" path="res://scenes/ui.tscn" id="3_0bbpv"]
 [ext_resource type="Texture2D" uid="uid://b6i06h273xp2q" path="res://assets/Background/House.png" id="4_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://cpip3sqc8rnet" path="res://scenes/finish_line.tscn" id="4_rarhs"]
@@ -26,6 +27,14 @@ repeat_times = 2
 [node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
 position = Vector2(848, -38)
 texture = ExtResource("1_nxtc6")
+
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.4, 1)
+
+[node name="Felix" type="Sprite2D" parent="Background/Parallax2D"]
+position = Vector2(1998.9999, 35)
+scale = Vector2(0.7380952, 0.7380952)
+texture = ExtResource("2_lhr70")
 
 [node name="Foliage" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.4, 1)
@@ -61,14 +70,13 @@ repeat_times = 2
 position = Vector2(848, -38)
 texture = ExtResource("5_q8u5g")
 
+[node name="FinishLine" parent="." instance=ExtResource("4_rarhs")]
+position = Vector2(9000, 30)
+
 [node name="Horse" parent="." instance=ExtResource("1_elqb8")]
 position = Vector2(-18, 62)
 
 [node name="UI" parent="." instance=ExtResource("3_0bbpv")]
-
-[node name="FinishLine" parent="." instance=ExtResource("4_rarhs")]
-position = Vector2(9492.001, -2.9999998)
-scale = Vector2(0.35677978, 0.35677978)
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 

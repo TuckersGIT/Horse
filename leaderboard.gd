@@ -9,16 +9,14 @@ extends Control
 var save_path := "user://leaderboard.save"
 
 func _ready():
-	
-	if FileAccess.file_exists(save_path):
-		DirAccess.remove_absolute(save_path)
 	update_board()
 
-func add_score(score: float):
+func add_score(score: float, horse_name: String):
 	var scores = load_scores()
 
-	scores.append(score)
-	scores.sort()
+	scores.append({"time": score, "name": horse_name})
+	
+	scores.sort_custom(func(a,b): return a["time"] < b["time"])
 	scores = scores.slice(0, 3)
 
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -51,6 +49,7 @@ func update_board():
 
 	for i in range(labels.size()):
 		if i < scores.size():
-			labels[i].text = str(i + 1) + ". " + str(scores[i])
+			labels[i].text = str(i + 1) + ". " + str(scores[i]["name"] + " - " + str(scores[i]["time"]))
 		else:
 			labels[i].text = str(i + 1) + ". ---"
+			
