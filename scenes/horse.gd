@@ -23,7 +23,14 @@ var first_words = load_word_list("res://assets/Names/first.txt")
 var second_words = load_word_list("res://assets/Names/second.txt")
 var horse_name := ""
 
-
+var carrot_scene = preload("res://scenes/carrot.tscn")
+var carrot = null
+var num_eated = 0
+@onready var horse_noises = $Players/HorseNoises
+@export var neigh_sound: AudioStream
+@export var crunch_sound: Array[AudioStream] = []
+@export var explode_sound: AudioStream
+var is_exploded = false
 
 func _ready():
 	players = [$Players/Clop1,$Players/Clop2,$Players/Clop3]
@@ -32,6 +39,9 @@ func _ready():
 	horse_name = nameTag()
 	
 func _process(delta: float) -> void:
+	
+	if carrot != null:
+		carrot.global_position = get_global_mouse_position()
 		
 	time_since_press += delta
 	
@@ -69,11 +79,29 @@ func _process(delta: float) -> void:
 		finish_race()
 	
 func _input(event: InputEvent) -> void:
+	
+	#if event is InputEventKey and event.echo:
+		#return
+	
+	if is_exploded:
+		return
+	
+	if event.is_action_pressed("Carrot"):
+		if carrot == null:
+			carrot = carrot_scene.instantiate()
+			get_tree().current_scene.add_child(carrot)
+			carrot.global_position = get_global_mouse_position()
+	
 	if event.is_action_pressed("space") and not race_started and not countdown_started:
 		countdown_started = true
 		$Players/StartRace.play()
 		$StartTimer.start()
 		return
+	
+	if event.is_action_pressed("space") and finished:
+		get_parent().get_node("UI/Leaderboard").hide_board()
+		
+
 		
 	if finished or not race_started:
 		return
@@ -110,7 +138,7 @@ func finish_race():
 	var finalTime = get_parent().get_node("UI/RaceClock").get_Time()
 	finalTime = floor(finalTime * 100) / 100.0
 	
-	$Players/HorseNoises.play()
+	play_horse_noise(neigh_sound)
 	$Players/Popoff.play()
 	
 	get_parent().get_node("UI/Leaderboard").add_score(finalTime, horse_name)
@@ -164,3 +192,41 @@ func nameTag() -> String:
 	panel.position.y = label.position.y - 4
 
 	return new_name
+	
+
+func _on_mouth_area_entered(area: Area2D) -> void:
+	if area.name == "carrot":
+		var particles = area.get_node("CPUParticles2D")
+		
+		particles.reparent(get_tree().current_scene)
+		particles.global_position = $Sprite2D/Mouth/CollisionShape2D.global_position + Vector2(0,17)
+		particles.emitting = true
+		
+		area.queue_free()
+		num_eated += 1
+		
+		play_horse_noise(crunch_sound)
+		carrot = null
+		
+		if num_eated >= 10:
+			var explosion = $CPUParticles2D
+			$Sprite2D.visible = false
+			$NameTag.visible = false
+			is_exploded = true
+			speed = 0.0
+			play_horse_noise(explode_sound)
+			explosion.emitting = true
+			get_parent().get_node("UI/RaceClock").stop_timer()
+			get_parent().get_node("UI/RaceClock").dq()
+		
+		await particles.finished
+		particles.queue_free()
+		
+func play_horse_noise(sound):
+	if sound is Array:
+		horse_noises.stream = sound.pick_random()
+	else:
+		horse_noises.stream = sound
+	
+	horse_noises.play()
+		

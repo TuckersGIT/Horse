@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3k5156mn2ltq"]
+[gd_scene load_steps=5 format=3 uid="uid://d3k5156mn2ltq"]
 
 [ext_resource type="PackedScene" uid="uid://drrvc5wyf0gnh" path="res://scenes/race_clock.tscn" id="1_nt7q6"]
 [ext_resource type="PackedScene" uid="uid://cbjkldwq3dq3t" path="res://scenes/progress_bar.tscn" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://capj785fhqd6" path="res://scenes/leaderboard.tscn" id="3_yev5y"]
+[ext_resource type="PackedScene" uid="uid://cdladr0cysbj6" path="res://scenes/buttons.tscn" id="4_gdt2y"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -31,3 +32,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Buttons" parent="." instance=ExtResource("4_gdt2y")]
+offset_left = 1054.0001
+offset_top = 631.0
+offset_right = 1054.0001
+offset_bottom = 631.0
+scale = Vector2(0.6, 0.677)

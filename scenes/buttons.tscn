@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdladr0cysbj6"]
+
+[ext_resource type="Texture2D" uid="uid://c8w4rtb2qm05q" path="res://assets/UI/left_unpressed.png" id="1_puxpd"]
+[ext_resource type="Script" uid="uid://dtyxpbhl4u52x" path="res://scenes/buttons.gd" id="1_tvki0"]
+[ext_resource type="Texture2D" uid="uid://cjnge2i0s7c02" path="res://assets/UI/right_unpressed.png" id="2_tvki0"]
+[ext_resource type="Texture2D" uid="uid://ikucg4jfq4ma" path="res://assets/UI/left_pressed.png" id="3_q4wf3"]
+[ext_resource type="Texture2D" uid="uid://bt6fa05i8jfiu" path="res://assets/UI/right_pressed.png" id="5_mge2y"]
+
+[node name="Buttons" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tvki0")
+left_unpressed = ExtResource("1_puxpd")
+left_pressed = ExtResource("3_q4wf3")
+right_unpressed = ExtResource("2_tvki0")
+right_pressed = ExtResource("5_mge2y")
+
+[node name="Left-Arrow" type="Sprite2D" parent="."]
+texture = ExtResource("1_puxpd")
+offset = Vector2(-120, 0)
+
+[node name="Right-Arrow" type="Sprite2D" parent="."]
+texture = ExtResource("2_tvki0")
+offset = Vector2(120, 0)

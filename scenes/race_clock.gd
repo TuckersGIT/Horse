@@ -20,3 +20,7 @@ func stop_timer():
 	
 func get_Time():
 	return total_time
+	
+func dq():
+	$Label.text = "DISQUALIFIED"
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fvhhfdtvbm4b"]
+[gd_scene load_steps=24 format=3 uid="uid://fvhhfdtvbm4b"]
 
 [ext_resource type="Script" uid="uid://bft3bsc6d1fka" path="res://scenes/horse.gd" id="1_lpili"]
 [ext_resource type="AudioStream" uid="uid://0ftm33c0b40i" path="res://assets/sounds/Clop2/clop1.ogg" id="2_gl1uc"]
@@ -11,9 +11,13 @@
 [ext_resource type="AudioStream" uid="uid://rsmjwi5ayne2" path="res://assets/sounds/StartRace.ogg" id="8_gl1uc"]
 [ext_resource type="Texture2D" uid="uid://c0jaumb80s615" path="res://assets/Hats/CowboyHat2.png" id="8_ph6uu"]
 [ext_resource type="AudioStream" uid="uid://drpoqw7dq5t8a" path="res://assets/sounds/HorseNeighs.ogg" id="9_e0gb1"]
+[ext_resource type="AudioStream" uid="uid://dhnrc36jd6vjk" path="res://assets/sounds/crunch/Crunch1.ogg" id="10_s1hhm"]
 [ext_resource type="Script" uid="uid://pbuudymy6p37" path="res://scenes/headclick.gd" id="11_0oyf6"]
+[ext_resource type="AudioStream" uid="uid://bck2wg4b4sh17" path="res://assets/sounds/crunch/Crunch2.ogg" id="11_x583s"]
+[ext_resource type="AudioStream" uid="uid://djfag7saeh20j" path="res://assets/sounds/crunch/Crunch3.ogg" id="12_by335"]
 [ext_resource type="AudioStream" uid="uid://dhn3i4l2321wx" path="res://assets/sounds/HONK.ogg" id="12_ph6uu"]
-[ext_resource type="AudioStream" uid="uid://dhpwuw36p7lyo" path="res://assets/sounds/PopOff.ogg" id="14_iiq8v"]
+[ext_resource type="AudioStream" uid="uid://c8xahtqrvtf7" path="res://assets/sounds/HorseExplode.ogg" id="13_x583s"]
+[ext_resource type="AudioStream" uid="uid://b8cr6y1in3as0" path="res://assets/sounds/EndRace.ogg" id="14_iiq8v"]
 
 [sub_resource type="Curve" id="Curve_fjee1"]
 _data = [Vector2(0, 0.17977536), 0.0, 0.0, 0, 0, Vector2(0.4941861, 0.4044944), 0.82825005, 0.82825005, 0, 0, Vector2(0.77906984, 0.52808994), 0.0, 0.0, 0, 0, Vector2(1, 0.23595512), -3.1089396, 0.0, 0, 0]
@@ -21,7 +25,14 @@ point_count = 4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6rl12"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiq8v"]
+radius = 39.660828
+
 [sub_resource type="AudioStream" id="AudioStream_lpili"]
+
+[sub_resource type="Curve" id="Curve_s1hhm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.720339, 0.82022476), -1.0198786, -1.0198786, 0, 0, Vector2(1, 0.19101131), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Horse" type="Node2D"]
 texture_filter = 1
@@ -32,6 +43,9 @@ run_texture = ExtResource("5_e0gb1")
 slide_texture = ExtResource("6_6rl12")
 run_hat = ExtResource("7_3l1kl")
 slide_hat = ExtResource("8_ph6uu")
+neigh_sound = ExtResource("9_e0gb1")
+crunch_sound = Array[AudioStream]([ExtResource("10_s1hhm"), ExtResource("11_x583s"), ExtResource("12_by335")])
+explode_sound = ExtResource("13_x583s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -71,6 +85,13 @@ position = Vector2(148, -93.00001)
 scale = Vector2(-4.420966, 2.8150616)
 shape = SubResource("CircleShape2D_6rl12")
 
+[node name="Mouth" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Mouth"]
+position = Vector2(252, -78.666664)
+scale = Vector2(1.2438803, 0.9641677)
+shape = SubResource("CircleShape2D_iiq8v")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 texture_filter = 1
 offset = Vector2(225, -100)
@@ -95,7 +116,6 @@ stream = ExtResource("8_gl1uc")
 volume_db = -10.0
 
 [node name="HorseNoises" type="AudioStreamPlayer" parent="Players"]
-stream = ExtResource("9_e0gb1")
 volume_db = -10.0
 
 [node name="HONK" type="AudioStreamPlayer" parent="Players"]
@@ -124,3 +144,20 @@ layout_mode = 0
 offset_right = 72.99999
 offset_bottom = 23.0
 text = "Yo Mama"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+rotation = -7.5632066e-05
+emitting = false
+amount = 60
+texture = ExtResource("7_pkxfc")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_s1hhm")
+
+[connection signal="area_entered" from="Sprite2D/Mouth" to="." method="_on_mouth_area_entered"]

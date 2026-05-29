@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://h0q23gclxy1q"]
+
+[ext_resource type="Texture2D" uid="uid://c0b0jan5iyyq6" path="res://assets/Extras/carrot.png" id="2_mb1r7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ucno"]
+radius = 46.010868
+
+[sub_resource type="Curve" id="Curve_btq7l"]
+_data = [Vector2(0.0084745735, 0.9887641), 0.0, 0.0, 0, 0, Vector2(0.720339, 0.8089888), -0.883895, -0.883895, 0, 0, Vector2(0.9830509, 0.19101131), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="carrot" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.51010495
+scale = Vector2(0.5600019, 1)
+shape = SubResource("CircleShape2D_7ucno")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mb1r7")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 0.9
+spread = 145.42
+gravity = Vector2(0, 200)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 7.0
+scale_amount_max = 9.0
+scale_amount_curve = SubResource("Curve_btq7l")

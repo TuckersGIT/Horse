@@ -53,3 +53,6 @@ func update_board():
 		else:
 			labels[i].text = str(i + 1) + ". ---"
 			
+func hide_board():
+	$".".visible = false
+			
