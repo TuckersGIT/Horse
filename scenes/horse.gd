@@ -30,7 +30,8 @@ var num_eated = 0
 @export var neigh_sound: AudioStream
 @export var crunch_sound: Array[AudioStream] = []
 @export var explode_sound: AudioStream
-var is_exploded = false
+@export var trick_sound: AudioStream
+var input_locked = false
 
 func _ready():
 	players = [$Players/Clop1,$Players/Clop2,$Players/Clop3]
@@ -82,9 +83,22 @@ func _input(event: InputEvent) -> void:
 	
 	#if event is InputEventKey and event.echo:
 		#return
+		
 	
-	if is_exploded:
+	if input_locked:
 		return
+	
+	if event.is_action_pressed("Emote") and (not race_started or finished) and not $Jumpy.is_playing():
+		$Sprite2D.visible = false
+		$Jumpy.visible = true
+		input_locked = true
+		$Jumpy.play()
+		play_horse_noise(trick_sound)
+		
+		await $Jumpy.animation_finished
+		$Sprite2D.visible = true
+		$Jumpy.visible = false
+		input_locked = false
 	
 	if event.is_action_pressed("Carrot"):
 		if carrot == null:
@@ -212,7 +226,7 @@ func _on_mouth_area_entered(area: Area2D) -> void:
 			var explosion = $CPUParticles2D
 			$Sprite2D.visible = false
 			$NameTag.visible = false
-			is_exploded = true
+			input_locked = true
 			speed = 0.0
 			play_horse_noise(explode_sound)
 			explosion.emitting = true
