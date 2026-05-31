@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3k5156mn2ltq"]
+[gd_scene load_steps=11 format=3 uid="uid://d3k5156mn2ltq"]
 
 [ext_resource type="PackedScene" uid="uid://drrvc5wyf0gnh" path="res://scenes/race_clock.tscn" id="1_nt7q6"]
 [ext_resource type="PackedScene" uid="uid://cbjkldwq3dq3t" path="res://scenes/progress_bar.tscn" id="2_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://capj785fhqd6" path="res://scenes/leaderboard.tscn" id="3_yev5y"]
 [ext_resource type="PackedScene" uid="uid://cdladr0cysbj6" path="res://scenes/buttons.tscn" id="4_gdt2y"]
+[ext_resource type="Texture2D" uid="uid://dvpd7qdgwrhsr" path="res://assets/UI/Palette/Brush_Icon.png" id="5_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://w38hinkghdlv" path="res://assets/UI/Palette/Brush_Pressed.png" id="6_ktti3"]
+[ext_resource type="Texture2D" uid="uid://bxf1idr3sa1wd" path="res://assets/UI/Palette/Brush_Hover.png" id="7_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://f1xcm0wkro3s" path="res://assets/UI/Carrot/Carrot_Icon.png" id="8_7dvkv"]
+[ext_resource type="Texture2D" uid="uid://cdywj4icwu3bh" path="res://assets/UI/Carrot/Carrot_Pressed.png" id="9_vdcm2"]
+[ext_resource type="Texture2D" uid="uid://cp4if7jta4epu" path="res://assets/UI/Carrot/Carrot_Hover.png" id="10_6rmj2"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -34,8 +40,28 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Buttons" parent="." instance=ExtResource("4_gdt2y")]
-offset_left = 1054.0001
-offset_top = 631.0
-offset_right = 1054.0001
-offset_bottom = 631.0
+offset_left = 1054.0
+offset_top = 636.0
+offset_right = 1054.0
+offset_bottom = 636.0
 scale = Vector2(0.6, 0.677)
+
+[node name="PaletteButton" type="TextureButton" parent="."]
+offset_left = 21.0
+offset_top = 625.0
+offset_right = 101.0
+offset_bottom = 700.0
+focus_mode = 0
+texture_normal = ExtResource("5_p7vwb")
+texture_pressed = ExtResource("6_ktti3")
+texture_hover = ExtResource("7_cgfq5")
+
+[node name="CarrotButton" type="TextureButton" parent="."]
+offset_left = 112.0
+offset_top = 626.0
+offset_right = 192.0
+offset_bottom = 701.0
+focus_mode = 0
+texture_normal = ExtResource("8_7dvkv")
+texture_pressed = ExtResource("9_vdcm2")
+texture_hover = ExtResource("10_6rmj2")

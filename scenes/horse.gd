@@ -33,11 +33,20 @@ var num_eated = 0
 @export var trick_sound: AudioStream
 var input_locked = false
 
+var key_word = "horse"
+var progress  = 0
+
+@export var bwomps: Array[AudioStream] = []
+@onready var player = get_parent().get_node("UI_Sounds")
+@onready var carrot_button = get_parent().get_node("UI/CarrotButton")
+
 func _ready():
 	players = [$Players/Clop1,$Players/Clop2,$Players/Clop3]
 	finish_line = get_parent().get_node("FinishLine")
 	$StartTimer.timeout.connect(start_race)
 	horse_name = nameTag()
+	
+	carrot_button.pressed.connect(spawn_carrot)
 	
 func _process(delta: float) -> void:
 	
@@ -80,14 +89,23 @@ func _process(delta: float) -> void:
 		finish_race()
 	
 func _input(event: InputEvent) -> void:
-	
-	#if event is InputEventKey and event.echo:
-		#return
-		
-	
 	if input_locked:
 		return
-	
+		
+	if event is InputEventKey and event.pressed and not event.echo and race_started:
+		var key = event.as_text_key_label().to_lower()
+		
+		if key.length() == 1 and key >= "a" and key <= "z":
+			if key == key_word[progress]:
+				progress += 1
+				
+				if progress == key_word.length():
+					speed += 150
+					progress = 0
+					
+			else:
+				progress = 0
+		
 	if event.is_action_pressed("Emote") and (not race_started or finished) and not $Jumpy.is_playing():
 		$Sprite2D.visible = false
 		$Jumpy.visible = true
@@ -101,10 +119,7 @@ func _input(event: InputEvent) -> void:
 		input_locked = false
 	
 	if event.is_action_pressed("Carrot"):
-		if carrot == null:
-			carrot = carrot_scene.instantiate()
-			get_tree().current_scene.add_child(carrot)
-			carrot.global_position = get_global_mouse_position()
+		spawn_carrot()
 	
 	if event.is_action_pressed("space") and not race_started and not countdown_started:
 		countdown_started = true
@@ -244,3 +259,10 @@ func play_horse_noise(sound):
 	
 	horse_noises.play()
 		
+func spawn_carrot():
+	if carrot == null and not input_locked:
+		player.stream = bwomps.pick_random()
+		player.play()
+		carrot = carrot_scene.instantiate()
+		get_tree().current_scene.add_child(carrot)
+		carrot.global_position = get_global_mouse_position()

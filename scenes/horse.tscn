@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://fvhhfdtvbm4b"]
+[gd_scene load_steps=100 format=3 uid="uid://fvhhfdtvbm4b"]
 
 [ext_resource type="Script" uid="uid://bft3bsc6d1fka" path="res://scenes/horse.gd" id="1_lpili"]
 [ext_resource type="AudioStream" uid="uid://0ftm33c0b40i" path="res://assets/sounds/Clop2/clop1.ogg" id="2_gl1uc"]
@@ -19,6 +19,10 @@
 [ext_resource type="AudioStream" uid="uid://c8xahtqrvtf7" path="res://assets/sounds/HorseExplode.ogg" id="13_x583s"]
 [ext_resource type="AudioStream" uid="uid://b8cr6y1in3as0" path="res://assets/sounds/EndRace.ogg" id="14_iiq8v"]
 [ext_resource type="AudioStream" uid="uid://cfombnkjjxvdk" path="res://assets/sounds/Trick.ogg" id="14_p1xnn"]
+[ext_resource type="AudioStream" uid="uid://ykwxa7sldcq1" path="res://assets/sounds/Bwomps/Bwomp1.ogg" id="15_xbeci"]
+[ext_resource type="AudioStream" uid="uid://cy6wwmcwto3ye" path="res://assets/sounds/Bwomps/Bwomp2.ogg" id="16_523yn"]
+[ext_resource type="AudioStream" uid="uid://bcyasro2cyp2c" path="res://assets/sounds/Bwomps/Bwomp3.ogg" id="17_5u2i2"]
+[ext_resource type="AudioStream" uid="uid://cow6upn4kin5n" path="res://assets/sounds/Bwomps/Bwomp4.ogg" id="18_3jypw"]
 [ext_resource type="Texture2D" uid="uid://s5voxswn5vqd" path="res://assets/Extras/JumpyHorse/0001.png" id="19_ubqc5"]
 [ext_resource type="Texture2D" uid="uid://bpiuy6kxufcor" path="res://assets/Extras/JumpyHorse/0002.png" id="20_p1xnn"]
 [ext_resource type="Texture2D" uid="uid://c8uuyc1m6v8av" path="res://assets/Extras/JumpyHorse/0003.png" id="21_tadre"]
@@ -336,6 +340,7 @@ neigh_sound = ExtResource("9_e0gb1")
 crunch_sound = Array[AudioStream]([ExtResource("10_s1hhm"), ExtResource("11_x583s"), ExtResource("12_by335")])
 explode_sound = ExtResource("13_x583s")
 trick_sound = ExtResource("14_p1xnn")
+bwomps = Array[AudioStream]([ExtResource("15_xbeci"), ExtResource("16_523yn"), ExtResource("17_5u2i2"), ExtResource("18_3jypw")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -403,7 +408,7 @@ stream = SubResource("AudioStream_lpili")
 
 [node name="StartRace" type="AudioStreamPlayer" parent="Players"]
 stream = ExtResource("8_gl1uc")
-volume_db = -10.0
+volume_db = -15.0
 
 [node name="HorseNoises" type="AudioStreamPlayer" parent="Players"]
 volume_db = -10.0

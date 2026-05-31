@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbro0rx2k2kxr"]
+[gd_scene load_steps=18 format=3 uid="uid://dbro0rx2k2kxr"]
 
 [ext_resource type="PackedScene" uid="uid://fvhhfdtvbm4b" path="res://scenes/horse.tscn" id="1_elqb8"]
 [ext_resource type="Texture2D" uid="uid://byyjc1aum2ib4" path="res://assets/Background/Sky.png" id="1_nxtc6"]
@@ -11,12 +11,20 @@
 [ext_resource type="Texture2D" uid="uid://bccfhtwfo1mm5" path="res://assets/Background/Ground.png" id="5_q8u5g"]
 [ext_resource type="Texture2D" uid="uid://c54whrbiehr4a" path="res://assets/Background/Fencepost.png" id="5_wp0k4"]
 [ext_resource type="Shader" uid="uid://bdcrmmoy22uje" path="res://scenes/Main.gdshader" id="8_jlsqs"]
+[ext_resource type="Script" uid="uid://3g66dr5avfw0" path="res://scenes/color_rect.gd" id="12_bjd11"]
+[ext_resource type="AudioStream" uid="uid://ykwxa7sldcq1" path="res://assets/sounds/Bwomps/Bwomp1.ogg" id="13_cvmbd"]
+[ext_resource type="AudioStream" uid="uid://cy6wwmcwto3ye" path="res://assets/sounds/Bwomps/Bwomp2.ogg" id="14_ft6cd"]
+[ext_resource type="AudioStream" uid="uid://bcyasro2cyp2c" path="res://assets/sounds/Bwomps/Bwomp3.ogg" id="15_bb450"]
+[ext_resource type="AudioStream" uid="uid://cow6upn4kin5n" path="res://assets/sounds/Bwomps/Bwomp4.ogg" id="16_nfivy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q8u5g"]
 shader = ExtResource("8_jlsqs")
+shader_parameter/c1 = Vector3(0, 0, 0)
+shader_parameter/c2 = Vector3(0, 0, 0)
+shader_parameter/c3 = Vector3(0, 0, 0)
+shader_parameter/c4 = Vector3(0, 0, 0)
 
 [node name="Main" type="Node2D"]
-position = Vector2(1, 0)
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -99,3 +107,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("12_bjd11")
+bwomps = Array[AudioStream]([ExtResource("13_cvmbd"), ExtResource("14_ft6cd"), ExtResource("15_bb450"), ExtResource("16_nfivy")])
+
+[node name="UI_Sounds" type="AudioStreamPlayer" parent="."]
